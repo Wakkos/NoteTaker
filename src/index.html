@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'" />
+  <title>Grabador</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <header class="bar">
+    <button id="rec" class="rec" title="Grabar (Ctrl+R)" aria-label="Grabar">
+      <span class="rec-dot"></span>
+    </button>
+    <div id="live" class="live" hidden>
+      <span id="timer" class="timer">00:00:00</span>
+      <div class="meter" title="Tu micrófono"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11Z"/></svg><i id="lvl-mic"></i></div>
+      <div class="meter" title="Audio del sistema"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4ZM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54Z"/></svg><i id="lvl-system"></i></div>
+    </div>
+    <div class="spacer"></div>
+    <input id="search" class="search" type="search" placeholder="Buscar" />
+    <button id="import" class="icon" title="Importar audio o vídeo" aria-label="Importar">
+      <svg viewBox="0 0 24 24"><path d="M11 4h2v9.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V4ZM5 19h14v2H5z"/></svg>
+    </button>
+    <button id="settings" class="icon" title="Ajustes" aria-label="Ajustes">
+      <svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.4 2.5-1a7.4 7.4 0 0 0 1.7 1L11 21h4l.4-2.9a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.4L19.4 13ZM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z" transform="translate(-1 0)"/></svg>
+    </button>
+  </header>
+
+  <div class="body">
+    <aside>
+      <ul id="list" class="list"></ul>
+      <p id="empty" class="empty" hidden>Graba o arrastra aquí un audio o vídeo</p>
+    </aside>
+    <main id="detail" class="detail"></main>
+  </div>
+
+  <div id="drop" class="drop" hidden><div>Suelta para importar</div></div>
+  <div id="toast" class="toast" hidden></div>
+
+  <dialog id="dlg">
+    <form method="dialog" id="settings-form">
+      <h2>Ajustes</h2>
+      <label>Clave de Deepgram<input name="deepgramKey" type="password" autocomplete="off" spellcheck="false" /></label>
+      <label>Idioma por defecto
+        <select name="language">
+          <option value="es">Español</option>
+          <option value="en">Inglés</option>
+          <option value="auto">Detectar</option>
+        </select>
+      </label>
+      <label>Diccionario <small>un término por línea</small><textarea name="keyterms" rows="7" spellcheck="false"></textarea></label>
+      <label>Carpeta
+        <div class="row"><input name="libraryDir" readonly /><button type="button" id="pick-dir" class="ghost">Cambiar</button></div>
+      </label>
+      <menu>
+        <button value="cancel" class="ghost">Cancelar</button>
+        <button value="save" class="primary" id="save-settings">Guardar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

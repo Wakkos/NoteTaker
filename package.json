@@ -1,0 +1,60 @@
+{
+  "name": "grabador",
+  "version": "0.1.0",
+  "description": "Graba reuniones e importa audio/vídeo; transcribe la grabación completa por API.",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node test/transcribe.test.js",
+    "dist": "electron-builder --publish never"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "author": "Daniel Martínez",
+  "build": {
+    "appId": "com.wakkos.grabador",
+    "productName": "Grabador",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "lib/**",
+      "src/**",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Grabador"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.png",
+      "category": "public.app-category.productivity",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Grabar tu voz en las reuniones."
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wakkos/grabador.git"
+  }
+}
